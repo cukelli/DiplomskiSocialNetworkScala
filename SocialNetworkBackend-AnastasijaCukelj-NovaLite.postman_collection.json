@@ -1,0 +1,133 @@
+{
+	"info": {
+		"_postman_id": "f765a5f4-b39f-4d9a-a406-6f9941425406",
+		"name": "SocialNetworkBackend-AnastasijaCukelj-NovaLite",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "27124326"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Email\": \"anastasija@gmail.com\",\n    \"LastName\": \"Anastasija\",\n    \"FirstName\": \"Cukelj\",\n    \"Password\": \"anastasijaanastasija\",\n    \"Gender\": \"F\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9000/api/registration"
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Email\": \"petar@gmail.com\",\n    \"Password\": \"petarpetarP1\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9000/api/login"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Create Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWJqZWN0IjoxLCJleHAiOjE3MDA2NzI5MDN9.qK3u0TCdCaI9M-C65uleb-pXjh4_4xcO02y91K6TaiE"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Title\": \"Title\",\n    \"Description\": \"Post description\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9000/api/post/create"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWJqZWN0IjoyLCJleHAiOjE3MDA2NjU3MjV9.ll1Z0Vww6AcGhcsA-0UZyCEjKah2JdUuyUIjvOnNfQc"
+							}
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"Title\": \"Changed title\",\n    \"Decsrpiton\": \"Changed descrption\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9000/api/post/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Friend request",
+			"item": [
+				{
+					"name": "Send friend request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWJqZWN0IjoyLCJleHAiOjE3MDA2NjU3MjV9.ll1Z0Vww6AcGhcsA-0UZyCEjKah2JdUuyUIjvOnNfQc"
+							}
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"sentFor\": 1\n    \n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "localhost:9000/api/friendrequest/send"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

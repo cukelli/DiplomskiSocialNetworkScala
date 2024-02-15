@@ -1,0 +1,67 @@
+# Routes
+
+# This file defines all application routes (Higher priority routes first)
+
+# https://www.playframework.com/documentation/latest/ScalaRouting
+
+# ~~~~
+
+# An example controller showing a sample home page
+
+GET / controllers.HomeController.index()
+
+# Routes
+
+# This file defines all application routes (Higher priority routes first)
+
+# https://www.playframework.com/documentation/latest/ScalaRouting
+
+# ~~~~
+
+# An example controller showing a sample home page
+
+GET / controllers.HomeController.index()
+
+# Map static resources from the /public folder to the /assets URL path
+
+GET /assets/*file controllers.Assets.versioned(path="/public", file: Asset)
+
+# User registration
+
+POST /api/registration controllers.UserController.registerUser()
+#Login
+POST /api/login controllers.UserController.login()
+#Search
+GET /api/search controllers.UserController.search(q: String)
+#Get current user
+GET /api/get/user controllers.UserController.getCurrentUser
+#Edit user info
+PUT     /api/profile/update   controllers.UserController.editPersonalInfo
+#Change password
+PUT    /api/update/password    controllers.UserController.updatePassword
+#Get my posts
+GET    /api/posts/me          controllers.PostController.getMyPosts
+
+#Create post
+POST /api/post/create controllers.PostController.createPost()
+#Update post
+PUT /api/post/update/:postId controllers.PostController.updatePost(postId: Long)
+
+#LIke post
+POST /api/post/like/:postId controllers.PostController.likePost(postId: Long)
+#Dislike post
+POST /api/post/unlike/:postId controllers.PostController.unlikePost(postId: Long)
+#Get friend's posts
+GET /api/home/posts controllers.PostController.getPosts
+
+#Send request
+POST /api/friendrequest/send controllers.FriendRequestController.sendRequest()
+#Accept friend request
+POST /api/friendrequest/accept/:userIdSent controllers.FriendRequestController.acceptFriendRequest(userIdSent: Long)
+#Decline friend request
+DELETE /api/friendrequest/decline/:userIdSent controllers.FriendRequestController.declineFriendRequest(userIdSent: Long)
+#Get friends
+GET /api/friends controllers.UserController.getMyFriends
+
+#Change profile picture
+# POST /api/uploadImage controllers.UserController.uploadImage()
