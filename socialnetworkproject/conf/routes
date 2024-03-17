@@ -65,3 +65,6 @@ GET /api/friends controllers.UserController.getMyFriends
 
 #Change profile picture
 # POST /api/uploadImage controllers.UserController.uploadImage()
+
+#Delete account
+# DELETE /api/delete controllers.UserController.deleteAccount()
