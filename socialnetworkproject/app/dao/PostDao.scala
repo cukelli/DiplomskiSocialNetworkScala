@@ -17,7 +17,7 @@ class PostTable(tag: Tag) extends Table[Post](tag, "Post") {
       s => FriendRequestStatus.withName(s)
     )
 
-  def postID = column[Long]("POSTID", O.PrimaryKey)
+  def postID = column[Long]("POSTID", O.PrimaryKey, O.AutoInc)
 
   def dateTimeCreated = column[Timestamp]("DATETIMECREATED")
 
@@ -27,44 +27,63 @@ class PostTable(tag: Tag) extends Table[Post](tag, "Post") {
 
   def userPosted = column[Long]("USERPOSTED")
 
-  def userPostedFk = foreignKey("user_fk", userPosted, TableQuery[UsersTable])(_.userID)
+  def userPostedFk =
+    foreignKey("user_fk", userPosted, TableQuery[UsersTable])(_.userID)
 
-  def * = (postID, dateTimeCreated, title, description, userPosted) <> (Post.tupled, Post.unapply)
+  def * = (
+    postID,
+    dateTimeCreated,
+    title,
+    description,
+    userPosted
+  ) <> (Post.tupled, Post.unapply)
 }
 
 class PostDao @Inject() (
-                          protected val dbConfigProvider: DatabaseConfigProvider,
-                          val friendRequestDao: FriendRequestDao,
-                          val userDao: UserDao,
-                          val userLikeDao: UserLikeDao
-                        )(
-                          implicit executionContext: ExecutionContext
-                        ) extends HasDatabaseConfigProvider[JdbcProfile] {
-
+    protected val dbConfigProvider: DatabaseConfigProvider,
+    val friendRequestDao: FriendRequestDao,
+    val userDao: UserDao,
+    val userLikeDao: UserLikeDao
+)(implicit
+    executionContext: ExecutionContext
+) extends HasDatabaseConfigProvider[JdbcProfile] {
 
   import profile.api._
 
   val Posts = TableQuery[PostTable]
 
   def all(): Future[Seq[Post]] = db.run(Posts.result)
-  def getById(postID: Long): Future[Option[Post]] = db.run(Posts.filter(_.postID === postID).result.headOption)
+  def getById(postID: Long): Future[Option[Post]] =
+    db.run(Posts.filter(_.postID === postID).result.headOption)
 
-  def create(post: Post): Future[Int] = db.run(Posts += post)
-  def update(post: Post): Future[Unit] = db.run(Posts.filter(_.postID === post.PostID).update(post)).map(_ => ())
-  def delete(postID: Long): Future[Unit] = db.run(Posts.filter(_.postID === postID).delete).map(_ => ())
+  def create(post: Post): Future[Long] = {
+    val insertAction = (Posts returning Posts.map(_.postID)) += post
+    db.run(insertAction)
+  }
+  // def create(post: Post): Future[Int] = db.run(Posts += post)
+  def update(post: Post): Future[Unit] =
+    db.run(Posts.filter(_.postID === post.PostID).update(post)).map(_ => ())
+  def delete(postID: Long): Future[Unit] =
+    db.run(Posts.filter(_.postID === postID).delete).map(_ => ())
 
   def getMyPosts(userId: Long): Future[Seq[Post]] = {
     val userPostsQuery = Posts.filter(_.userPosted === userId)
     db.run(userPostsQuery.result)
   }
 
-
-  def getFriendsPosts(userId: Long): Future[Seq[PostDTO]] = {
+  def getFriendsAndMyPosts(userId: Long): Future[Seq[PostDTO]] = {
     for {
       friendsIds <- friendRequestDao.getFriendsIds(userId)
-      users <- Future.sequence(friendsIds.map(id => userDao.getById(id))).map(_.flatten)
-      posts <- Future.sequence(users.map(user => getMyPosts(user.UserID))).map(_.flatten)
-      likes <- Future.sequence(posts.map(post => userLikeDao.getByPostId(post.PostID))).map(_.flatten)
+      allIds = friendsIds :+ userId
+      users <- Future
+        .sequence(allIds.map(id => userDao.getById(id)))
+        .map(_.flatten)
+      posts <- Future
+        .sequence(users.map(user => getMyPosts(user.UserID)))
+        .map(_.flatten)
+      likes <- Future
+        .sequence(posts.map(post => userLikeDao.getByPostId(post.PostID)))
+        .map(_.flatten)
     } yield {
       posts.flatMap { post =>
         val user = users.find(u => u.UserID == post.UserPosted)
@@ -77,8 +96,9 @@ class PostDao @Inject() (
             userObject.FirstName,
             userObject.LastName,
             likes.count(like => like.postLiked == post.PostID),
-            likes.exists(like => (like.userLiked == userId && like.postLiked == post.PostID))
-
+            likes.exists(like =>
+              (like.userLiked == userId && like.postLiked == post.PostID)
+            )
           )
         }
       }
@@ -86,7 +106,3 @@ class PostDao @Inject() (
   }
 
 }
-
-
-
-

@@ -7,6 +7,7 @@ CREATE TABLE Users (
    firstName varchar(200) NOT NULL,
    password varchar(200) NOT NULL,
    gender ENUM('M','F'),
+   role ENUM('USER','ADMIN'),
    profilePicture varchar(2000),
    PRIMARY KEY(userID)
 );
@@ -41,6 +42,15 @@ CREATE TABLE UserLike (
    FOREIGN KEY (postLiked) REFERENCES Post(postID) ON DELETE CASCADE,
    PRIMARY KEY(userLiked, postLiked)
 );
+
+CREATE TABLE Image (
+  postID BIGINT NOT NULL,
+  imageID BIGINT NOT NULL,
+  imagePath TEXT NOT NULL,
+  PRIMARY KEY(postID, imageID)
+
+
+)
 
 -- !Downs
 

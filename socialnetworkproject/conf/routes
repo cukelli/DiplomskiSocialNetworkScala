@@ -67,4 +67,18 @@ GET /api/friends controllers.UserController.getMyFriends
 # POST /api/uploadImage controllers.UserController.uploadImage()
 
 #Delete account
-# DELETE /api/delete controllers.UserController.deleteAccount()
+DELETE /api/delete  controllers.UserController.deleteAccount()
+
+#Get all users
+GET /api/users/all controllers.UserController.getAllUsers()
+
+#Get all users except me
+GET /api/allExceptMe controllers.UserController.getAllUsersExceptMe() 
+
+#Create image
+POST    /api/image/add/:postId    controllers.ImageController.createImage(postId: Long, imageID: Long)
+
+#Get images post
+GET     /api/image/posts/:postId       controllers.ImageController.getImagesByPostId(postId: Long)
+
+
