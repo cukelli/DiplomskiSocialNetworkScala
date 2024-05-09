@@ -20,5 +20,3 @@ libraryDependencies += "de.svenkubiak" % "jBCrypt" % "0.4.1"
 
 //javaOptions += "-Xdebug"
 //javaOptions += "-Xrunjdwp:transport=dt_socket,server=y,suspend=n,address=5005"
-
-

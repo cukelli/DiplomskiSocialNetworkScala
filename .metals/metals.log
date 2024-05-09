@@ -237,3 +237,29 @@ create table fingerprints(
 2024.04.07 10:12:24 INFO  Shutting down server
 2024.04.07 10:12:24 INFO  shutting down Metals
 2024.04.07 10:12:24 INFO  Exiting server
+2024.05.09 15:28:06 INFO  Started: Metals version 1.3.0 in folders 'D:\Fax\III godina\diplomski\DiplomskiSocialNetworkScala' for client Visual Studio Code 1.84.2.
+2024.05.09 15:28:06 INFO  time: initialize in 0.27s
+SLF4J: Class path contains multiple SLF4J providers.
+SLF4J: Found provider [scribe.slf4j.ScribeServiceProvider@1e946eb0]
+SLF4J: Found provider [ch.qos.logback.classic.spi.LogbackServiceProvider@5ddb7fe5]
+SLF4J: See https://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual provider is of type [scribe.slf4j.ScribeServiceProvider@1e946eb0]
+2024.05.09 15:28:13 WARN  Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2024.05.09 15:28:14 ERROR Migration of schema "PUBLIC" to version "1 - Create tables" failed! Please restore backups and roll back database and code!
+2024.05.09 15:28:14 WARN  resetting database: D:\Fax\III godina\diplomski\DiplomskiSocialNetworkScala\.metals\metals.h2.db
+2024.05.09 15:28:14 WARN  Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+2024.05.09 15:28:15 WARN  Flyway upgrade recommended: H2 2.2.224 is newer than this version of Flyway and support has not been tested. The latest supported version of H2 is 2.2.220.
+maj 09, 2024 3:28:28 PO PODNE org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 3
+maj 09, 2024 3:28:30 PO PODNE org.eclipse.lsp4j.jsonrpc.RemoteEndpoint handleCancellation
+WARNING: Unmatched cancel notification for request id 1
+2024.05.09 15:30:19 INFO  no build target found for D:\Fax\III godina\diplomski\DiplomskiSocialNetworkScala\socialnetworkproject\app\dao\UserDao.scala. Using presentation compiler with project's scala-library version: 3.3.3
+2024.05.09 15:30:21 WARN  Build server is not auto-connectable.
+2024.05.09 15:30:38 INFO  time: code lens generation in 17s
+2024.05.09 15:30:38 INFO  time: code lens generation in 7.54s
+2024.05.09 15:30:38 INFO  time: code lens generation in 17s
+2024.05.09 15:30:38 INFO  time: code lens generation in 17s
+2024.05.09 15:30:38 INFO  time: code lens generation in 4.98s
+2024.05.09 15:31:29 INFO  Shutting down server
+2024.05.09 15:31:29 INFO  shutting down Metals
+2024.05.09 15:31:29 INFO  Exiting server

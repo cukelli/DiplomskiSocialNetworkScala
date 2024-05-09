@@ -1,0 +1,4 @@
+2024-05-09 15:28:14.553788+02:00 jdbc[4]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "DEPENDENCY_SOURCE" already exists; SQL statement:
+-- The relationship between library dependency sources under .metals/readonly/**
+-- and build targets they bel [42101-224]
